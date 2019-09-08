@@ -14,11 +14,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+
+
 public class HttpUtil {
     private static final String TAG = "HttpUtil";
 
 
-    public static void sendOkHttpRequest(final String address, final String action, final String result, final String method, final String account, final String password, final Handler handler) throws IOException {
+    public static void sendOkHttpRequest(final String address, final String action, final String result, final String method, final String account, final String password,final HttpCallbackListener listener) throws IOException {
          final int TOAST_DATA = 1;
         new Thread(new Runnable() {
             @Override
@@ -38,16 +40,24 @@ public class HttpUtil {
                 try {
                     response = client.newCall(request).execute();
                     data = response.body().string();
+
+                    if (listener != null){
+                        listener.onFinish(data);
+                    }
+//                    hello = data;
                     Log.d(TAG, "run: +data" + data);
                 } catch (IOException e) {
+                    if (listener != null){
+                        listener.onError(e);
+                    }
                     e.printStackTrace();
                 }
-                Message message = new Message();
-                Bundle bundle = new Bundle();
-                bundle.putString("result",data);
-                message.setData(bundle);
-                message.what = TOAST_DATA;
-                handler.sendMessage(message);
+//                Message message = new Message();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("result",data);
+//                message.setData(bundle);
+//                message.what = TOAST_DATA;
+//                handler.sendMessage(message);
 
             }
         }).start();

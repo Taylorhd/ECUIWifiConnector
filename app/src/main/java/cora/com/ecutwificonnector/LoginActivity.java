@@ -62,24 +62,24 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-//            super.handleMessage(msg);
-            switch (msg.what){
-                case TOAST_DATA:
-                    Bundle bundle =msg.getData();
-                    String data = bundle.getString("result",null);
-                    Toast.makeText(LoginActivity.this,""+data, Toast.LENGTH_LONG).show();
-//                    Log.d(TAG, "handleMessage: result "+data);
-                  loginStatus = data;
-                    Log.d(TAG, "handleMessage: handle loginstatus "+loginStatus);
-                    break;
-                    default:break;
-                }
-            }
-
-    };
+//    private Handler handler = new Handler(){
+//        @Override
+//        public void handleMessage(@NonNull Message msg) {
+////            super.handleMessage(msg);
+//            switch (msg.what){
+//                case TOAST_DATA:
+//                    Bundle bundle =msg.getData();
+//                    String data = bundle.getString("result",null);
+//                    Toast.makeText(LoginActivity.this,""+data, Toast.LENGTH_LONG).show();
+////                    Log.d(TAG, "handleMessage: result "+data);
+//                  loginStatus = data;
+//                    Log.d(TAG, "handleMessage: handle loginstatus "+loginStatus);
+//                    break;
+//                    default:break;
+//                }
+//            }
+//
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,20 +186,41 @@ public class LoginActivity extends AppCompatActivity {
 //                       HttpUtil.sendOkHttpRequest("http://172.21.255.105:801/eportal/?c=Portal","login","dr1567854710457","1","201720182028%40cmcc","Taotaoyuyu9926",handler);
                     try {
                         Log.d(TAG, "onClick: password"+password);
-                        HttpUtil.sendOkHttpRequest(address,action,"result",method,account,password,handler);
+                        HttpUtil.sendOkHttpRequest(address, action, "result", method, account, password, new HttpCallbackListener() {
+                            @Override
+                            public void onFinish(String response) {
+                                loginStatus = response;
+                                if ("result({\"result\":\"1\",\"msg\":\"认证成功\"})".equals(loginStatus)){
+                                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                    startActivity(intent);
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(MyApplication.getContext(),"认证成功",Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+//
+                                    finish();
+                                }else{
+                                    Log.d(TAG, "onFinish: error");
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(MyApplication.getContext(),"请检查用户名、密码以及运营商",Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+//
+                                }
+
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+
+                            }
+                        });
                     } catch (IOException e) {
                         e.printStackTrace();
-                    }
-
-                Log.d(TAG, "onClick: login status:"+loginStatus);
-
-                if ("result({\"result\":\"1\",\"msg\":\"认证成功\"})".equals(loginStatus)){
-//                    if (loginStatus.equals("({\"result\":\"1\",\"msg\":\"认证成功\"})")){
-                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }else {
-                        Toast.makeText(LoginActivity.this,"请检查用户名、密码以及运营商",Toast.LENGTH_LONG).show();
                     }
                 }
         });
