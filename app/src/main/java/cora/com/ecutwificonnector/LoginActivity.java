@@ -1,21 +1,15 @@
 package cora.com.ecutwificonnector;
 
 import android.Manifest;
-import android.content.Context;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
 import android.preference.PreferenceManager;
-
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,16 +20,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import okhttp3.Response;
+
 
 public class LoginActivity extends AppCompatActivity {
     private String loginStatus = "";
@@ -60,26 +52,6 @@ public class LoginActivity extends AppCompatActivity {
     private String account;
     private String password;
 
-
-
-//    private Handler handler = new Handler(){
-//        @Override
-//        public void handleMessage(@NonNull Message msg) {
-////            super.handleMessage(msg);
-//            switch (msg.what){
-//                case TOAST_DATA:
-//                    Bundle bundle =msg.getData();
-//                    String data = bundle.getString("result",null);
-//                    Toast.makeText(LoginActivity.this,""+data, Toast.LENGTH_LONG).show();
-////                    Log.d(TAG, "handleMessage: result "+data);
-//                  loginStatus = data;
-//                    Log.d(TAG, "handleMessage: handle loginstatus "+loginStatus);
-//                    break;
-//                    default:break;
-//                }
-//            }
-//
-//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,7 +155,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 Log.d(TAG, "account : "+account);
 
-//                       HttpUtil.sendOkHttpRequest("http://172.21.255.105:801/eportal/?c=Portal","login","dr1567854710457","1","201720182028%40cmcc","Taotaoyuyu9926",handler);
                     try {
                         Log.d(TAG, "onClick: password"+password);
                         HttpUtil.sendOkHttpRequest(address, action, "result", method, account, password, new HttpCallbackListener() {
@@ -245,24 +216,18 @@ public class LoginActivity extends AppCompatActivity {
     public void  getWifiInfo(){
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
         WifiInfo wifiInfo= wm.getConnectionInfo();
-//        Log.d(TAG, "getWifiInfo: "+wifiInfo);
 
         String wifiSSID = wifiInfo.getSSID();
         Log.d(TAG, "getWifiInfo: ssid"+wifiSSID);
         String ECUT = "\"ECUT_S\"";
-        String ECUT_5G = "\"ECUT_S_5G\"";
-
+        String ECUT_5G = "\"EUCT_S_5G\"";
 
         if (ECUT.equals(wifiSSID)||ECUT_5G.equals(wifiSSID)){
                //已连接
-
         }else {
             Toast.makeText(LoginActivity.this,"未连接至ECUT",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
              startActivity(intent);
         }
-
     }
-
-
 }

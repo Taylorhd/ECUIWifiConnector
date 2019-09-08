@@ -12,7 +12,6 @@ public class MyApplication extends Application {
         super.onCreate();
         context = getApplicationContext();
     }
-
     public static Context getContext() {
         return context;
     }
