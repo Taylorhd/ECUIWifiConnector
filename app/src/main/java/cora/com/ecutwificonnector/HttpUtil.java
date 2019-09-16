@@ -13,7 +13,6 @@ public class HttpUtil {
 
 
     public static void sendOkHttpRequest(final String address, final String action, final String result, final String method, final String account, final String password,final HttpCallbackListener listener) throws IOException {
-         final int TOAST_DATA = 1;
         new Thread(new Runnable() {
             @Override
             public void run() {

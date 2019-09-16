@@ -11,6 +11,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -20,43 +21,97 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+
+import com.google.android.material.navigation.NavigationView;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 
 public class LoginActivity extends AppCompatActivity {
     private String loginStatus = "";
     private static final String TAG = "LoginActivity";
-    private final int TOAST_DATA = 1;
-
     //创建 账号控件  、密码控件 、checkbox控件 登录控件
     private EditText editTextAccount ;
     private EditText editTextPassword;
     private CheckBox checkBoxRemember;
     private Button buttonLogin;
-
     private List<String> list = new ArrayList<>();
     private Spinner  spinnerText;
     private ArrayAdapter<String> adapter;
-
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-
     private String isp = "南昌移动";
     private int location;
     private String account;
     private String password;
+    private DrawerLayout mDrawerLayout;
 
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                break;
+                default:break;
+        }
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        }
+        navView.setCheckedItem(R.id.nav_login);
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Intent intent = null;
+                switch (menuItem.getItemId()){
+                    case R.id.nav_login:
+                        mDrawerLayout.closeDrawers();
+                         intent = new Intent(MyApplication.getContext(),LoginActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.nac_status:
+                        mDrawerLayout.closeDrawers();
+                        intent = new Intent(MyApplication.getContext(),StatusActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.ques_and_answer:
+                        mDrawerLayout.closeDrawers();
+                        intent = new Intent(MyApplication.getContext(),QuesAnsActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.feedback:
+                        mDrawerLayout.closeDrawers();
+                        intent = new Intent(MyApplication.getContext(),FeedbackActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return false;
+            }
+        });
         //请求定位权限
         if (Build.VERSION.SDK_INT>Build.VERSION_CODES.O){
             //如果大于Android O ，请求定位权限
@@ -221,8 +276,9 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "getWifiInfo: ssid"+wifiSSID);
         String ECUT = "\"ECUT_S\"";
         String ECUT_5G = "\"EUCT_S_5G\"";
+        String ECUT_STUD = "\"ECUT_STUD\"";
 
-        if (ECUT.equals(wifiSSID)||ECUT_5G.equals(wifiSSID)){
+        if (ECUT.equals(wifiSSID)||ECUT_5G.equals(wifiSSID)||(ECUT_STUD.equals(wifiSSID))){
                //已连接
         }else {
             Toast.makeText(LoginActivity.this,"未连接至ECUT",Toast.LENGTH_SHORT).show();
