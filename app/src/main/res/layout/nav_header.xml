@@ -1,9 +1,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="180dp"
-    android:padding="10dp"
+
     android:background="?attr/colorPrimary">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg" />
+
     <TextView
+        android:padding="10dp"
         android:id="@+id/mail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,6 +22,7 @@
         android:textSize="14sp" />
 
     <TextView
+        android:padding="10dp"
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

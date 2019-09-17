@@ -37,7 +37,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-
 public class LoginActivity extends AppCompatActivity {
     private String loginStatus = "";
     private static final String TAG = "LoginActivity";
@@ -56,8 +55,6 @@ public class LoginActivity extends AppCompatActivity {
     private String account;
     private String password;
     private DrawerLayout mDrawerLayout;
-
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -73,39 +70,40 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         }
+
         navView.setCheckedItem(R.id.nav_login);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Intent intent = null;
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.nav_login:
                         mDrawerLayout.closeDrawers();
-                         intent = new Intent(MyApplication.getContext(),LoginActivity.class);
+                        intent = new Intent(MyApplication.getContext(), LoginActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.nac_status:
                         mDrawerLayout.closeDrawers();
-                        intent = new Intent(MyApplication.getContext(),StatusActivity.class);
+                        intent = new Intent(MyApplication.getContext(), StatusActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.ques_and_answer:
                         mDrawerLayout.closeDrawers();
-                        intent = new Intent(MyApplication.getContext(),QuesAnsActivity.class);
+                        intent = new Intent(MyApplication.getContext(), QuesAnsActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.feedback:
                         mDrawerLayout.closeDrawers();
-                        intent = new Intent(MyApplication.getContext(),FeedbackActivity.class);
+                        intent = new Intent(MyApplication.getContext(), FeedbackActivity.class);
                         startActivity(intent);
                         break;
                 }
@@ -113,10 +111,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         //请求定位权限
-        if (Build.VERSION.SDK_INT>Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //如果大于Android O ，请求定位权限
-            if (ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(LoginActivity.this,new String[] {Manifest.permission.ACCESS_FINE_LOCATION},1);
+            if (ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         }
 
@@ -124,46 +122,45 @@ public class LoginActivity extends AppCompatActivity {
         list.add("南昌移动");
         list.add("南昌电信");
         list.add("南昌联通");
-        spinnerText = (Spinner)findViewById(R.id.spinnerISP);
+        spinnerText = (Spinner) findViewById(R.id.spinnerISP);
         //定义适配器
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
         //下拉样式
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //适配器添加到下拉拉列表
         spinnerText.setAdapter(adapter);
         //注意位置(0,1,2)
-        spinnerText.setSelection(0,true);
+        spinnerText.setSelection(0, true);
 
         //添加监听器
         spinnerText.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 isp = adapter.getItem(position);
-                Log.d(TAG, "onItemSelected: isp"+isp);
+                Log.d(TAG, "onItemSelected: isp" + isp);
                 location = position;
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
         //assign pref
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         //引入视图
-        editTextAccount  = (EditText) findViewById(R.id.et_account);
-        editTextPassword = (EditText)findViewById(R.id.et_password);
-        checkBoxRemember = (CheckBox)findViewById(R.id.cb_Remember);
-        buttonLogin = (Button)findViewById(R.id.bt_login);
+        editTextAccount = (EditText) findViewById(R.id.et_account);
+        editTextPassword = (EditText) findViewById(R.id.et_password);
+        checkBoxRemember = (CheckBox) findViewById(R.id.cb_Remember);
+        buttonLogin = (Button) findViewById(R.id.bt_login);
 
         //检查是否勾选记住密码，若记住密码状态，则读取数据
         //若未记住密码，不处理
-        boolean isRemember = pref.getBoolean("remember_password",false);
+        boolean isRemember = pref.getBoolean("remember_password", false);
 //        Log.d(TAG, "onCreate: "+isRemember);
-        if (isRemember){        //记住的情况，读取数据
-            account = pref.getString("account","");
-            password = pref.getString("password","");
-            spinnerText.setSelection(pref.getInt("ISP",0));
+        if (isRemember) {        //记住的情况，读取数据
+            account = pref.getString("account", "");
+            password = pref.getString("password", "");
+            spinnerText.setSelection(pref.getInt("ISP", 0));
             editTextAccount.setText(account);
             editTextPassword.setText(password);
             editTextPassword.setSelection(password.length());
@@ -176,81 +173,117 @@ public class LoginActivity extends AppCompatActivity {
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
 
-            String address = "http://172.21.255.105:801/eportal/?c=Portal";
-            String action = "login";
-            String method = "1";
-            @Override
-            public void onClick(View v) {
-                editor = pref.edit();
-                if (checkBoxRemember.isChecked()){      //勾选了，写入
-                    editor.putBoolean("remember_password",true);
-                    editor.putString("account",editTextAccount.getText().toString());
-                    editor.putString("password",editTextPassword.getText().toString());
-                    editor.putInt("ISP",location);
-                }else{
-                    editor.clear();
-                }
-                    editor.apply();
 
-                account = editTextAccount.getText().toString();
-                password = editTextPassword.getText().toString();
-                getWifiInfo();
 
-                Log.d(TAG, "onClick: account "+account+"    isp:  "+isp);
+           String address = "http://172.21.255.105:801/eportal/?c=Portal";
+           String action = "login";
+           String method = "1";
 
-                if (isp.equals("南昌移动")){
-                    account = account+"%40cmcc";
-                }else if (isp.equals("南昌电信")){
-                    //电信
-                    account = account+"%40telecom";
-                }else if (isp.equals("南昌联通")){
-                    //联通
-                    account = account+"%40unicom";
-                }
+           @Override
+           public void onClick(View v) {
+               if (getWifiInfo()){
+                   editor = pref.edit();
+                   if (checkBoxRemember.isChecked()) {      //勾选了，写入
+                       editor.putBoolean("remember_password", true);
+                       editor.putString("account", editTextAccount.getText().toString());
+                       editor.putString("password", editTextPassword.getText().toString());
+                       editor.putInt("ISP", location);
+                   } else {
+                       editor.clear();
+                   }
+                   editor.apply();
 
-                Log.d(TAG, "account : "+account);
+                   account = editTextAccount.getText().toString();
+                   password = editTextPassword.getText().toString();
 
-                    try {
-                        Log.d(TAG, "onClick: password"+password);
-                        HttpUtil.sendOkHttpRequest(address, action, "result", method, account, password, new HttpCallbackListener() {
-                            @Override
-                            public void onFinish(String response) {
-                                loginStatus = response;
-                                if ("result({\"result\":\"1\",\"msg\":\"认证成功\"})".equals(loginStatus)){
-                                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                                    startActivity(intent);
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toast.makeText(MyApplication.getContext(),"认证成功",Toast.LENGTH_LONG).show();
-                                        }
-                                    });
-//
-                                    finish();
-                                }else{
-                                    Log.d(TAG, "onFinish: error");
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toast.makeText(MyApplication.getContext(),"请检查用户名、密码以及运营商",Toast.LENGTH_LONG).show();
-                                        }
-                                    });
-//
-                                }
 
-                            }
+                   Log.d(TAG, "onClick: account " + account + "    isp:  " + isp);
 
-                            @Override
-                            public void onError(Exception e) {
 
-                            }
-                        });
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-        });
+
+
+                   if (isp.equals("南昌移动")) {
+                       account = account + "%40cmcc";
+                   } else if (isp.equals("南昌电信")) {
+                       //电信
+                       account = account + "%40telecom";
+                   } else if (isp.equals("南昌联通")) {
+                       //联通
+                       account = account + "%40unicom";
+                   }
+
+                   Log.d(TAG, "account : " + account);
+
+                   try {
+                       Log.d(TAG, "onClick: password" + password);
+                       HttpUtil.sendOkHttpRequest(address, action, "result", method, account, password, new HttpCallbackListener() {
+                           @Override
+                           public void onFinish(String response) {
+                               loginStatus = response;
+                               if ("result({\"result\":\"1\",\"msg\":\"认证成功\"})".equals(loginStatus)) {
+                                   Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                   startActivity(intent);
+                                   runOnUiThread(new Runnable() {
+                                       @Override
+                                       public void run() {
+                                           Toast.makeText(MyApplication.getContext(), "认证成功", Toast.LENGTH_LONG).show();
+                                       }
+                                   });
+                                   finish();
+                               } else {
+                                   Log.d(TAG, "onFinish: error");
+                                   runOnUiThread(new Runnable() {
+                                       @Override
+                                       public void run() {
+                                           Toast.makeText(MyApplication.getContext(), "请检查用户名、密码以及运营商", Toast.LENGTH_LONG).show();
+                                       }
+                                   });
+                               }
+
+                           }
+
+                           @Override
+                           public void onError(Exception e) {
+
+                           }
+                       });
+                   } catch (IOException e) {
+                       e.printStackTrace();
+                   }
+
+
+               }else{
+                   Intent intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
+                   startActivity(intent);
+               }
+
+           }
+
+       }
+);
+
+
         //判读账号是否正确，其他业务逻辑
+    }
+
+    public boolean getWifiInfo() {
+        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+        WifiInfo wifiInfo= wm.getConnectionInfo();
+
+        String wifiSSID = wifiInfo.getSSID();
+        Log.d(TAG, "getWifiInfo: ssid"+wifiSSID);
+        String ECUT = "\"ECUT_S\"";
+        String ECUT_5G = "\"EUCT_S_5G\"";
+        String ECUT_STUD = "\"ECUT_STUD\"";
+
+        if (ECUT.equals(wifiSSID)||ECUT_5G.equals(wifiSSID)||(ECUT_STUD.equals(wifiSSID))){
+            //已连接
+            return true;
+        }else {
+            Toast.makeText(LoginActivity.this,"未连接至ECUT",Toast.LENGTH_SHORT).show();
+
+        }
+        return false;
     }
 
     @Override
@@ -268,22 +301,5 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void  getWifiInfo(){
-        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
-        WifiInfo wifiInfo= wm.getConnectionInfo();
 
-        String wifiSSID = wifiInfo.getSSID();
-        Log.d(TAG, "getWifiInfo: ssid"+wifiSSID);
-        String ECUT = "\"ECUT_S\"";
-        String ECUT_5G = "\"EUCT_S_5G\"";
-        String ECUT_STUD = "\"ECUT_STUD\"";
-
-        if (ECUT.equals(wifiSSID)||ECUT_5G.equals(wifiSSID)||(ECUT_STUD.equals(wifiSSID))){
-               //已连接
-        }else {
-            Toast.makeText(LoginActivity.this,"未连接至ECUT",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
-             startActivity(intent);
-        }
-    }
 }
