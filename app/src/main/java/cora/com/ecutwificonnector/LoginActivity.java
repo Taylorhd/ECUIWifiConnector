@@ -22,7 +22,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.IOException;
@@ -303,6 +302,4 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
 }

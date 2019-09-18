@@ -1,12 +1,9 @@
 package cora.com.ecutwificonnector;
 
 import android.util.Log;
-import android.util.Patterns;
-
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
