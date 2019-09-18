@@ -216,12 +216,15 @@ public class LoginActivity extends AppCompatActivity {
 
                    try {
                        Log.d(TAG, "onClick: password" + password);
-                       HttpUtil.sendOkHttpRequest(address, action, "result", method, account, password, new HttpCallbackListener() {
+
+                       String url = address + "&a=" + action + "&callback=" + "result" + "&login_method=" + method + "&user_account=" + account + "&user_password=" + password;
+                       HttpUtil.sendOkHttpRequest(url, new HttpCallbackListener() {
+//                       HttpUtil.sendOkHttpRequest(address, action, "result", method, account, password, new HttpCallbackListener() {
                            @Override
                            public void onFinish(String response) {
                                loginStatus = response;
                                if ("result({\"result\":\"1\",\"msg\":\"认证成功\"})".equals(loginStatus)) {
-                                   Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                   Intent intent = new Intent(LoginActivity.this, StatusActivity.class);
                                    startActivity(intent);
                                    runOnUiThread(new Runnable() {
                                        @Override
@@ -229,7 +232,7 @@ public class LoginActivity extends AppCompatActivity {
                                            Toast.makeText(MyApplication.getContext(), "认证成功", Toast.LENGTH_LONG).show();
                                        }
                                    });
-                                   finish();
+
                                } else {
                                    Log.d(TAG, "onFinish: error");
                                    runOnUiThread(new Runnable() {
