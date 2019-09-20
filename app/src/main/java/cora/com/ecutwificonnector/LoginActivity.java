@@ -263,11 +263,8 @@ public class LoginActivity extends AppCompatActivity {
 
        }
 );
-
-
         //判读账号是否正确，其他业务逻辑
-    }
-
+}
     public boolean getWifiInfo() {
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
         WifiInfo wifiInfo= wm.getConnectionInfo();
@@ -275,15 +272,13 @@ public class LoginActivity extends AppCompatActivity {
         String wifiSSID = wifiInfo.getSSID();
         Log.d(TAG, "getWifiInfo: ssid"+wifiSSID);
         String ECUT = "\"ECUT_S\"";
-        String ECUT_5G = "\"EUCT_S_5G\"";
         String ECUT_STUD = "\"ECUT_STUD\"";
 
-        if (ECUT.equals(wifiSSID)||ECUT_5G.equals(wifiSSID)||(ECUT_STUD.equals(wifiSSID))){
+        if (ECUT.equals(wifiSSID)||(ECUT_STUD.equals(wifiSSID))){
             //已连接
             return true;
         }else {
             Toast.makeText(LoginActivity.this,"未连接至ECUT",Toast.LENGTH_SHORT).show();
-
         }
         return false;
     }

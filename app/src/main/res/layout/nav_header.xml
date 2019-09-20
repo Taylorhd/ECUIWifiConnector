@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="hello "
+        android:text="ECUT "
         android:textColor="#FFF"
         android:textSize="14sp" />
 
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/mail"
-        android:text="happy"
+        android:text="东华理工大学"
         android:textColor="#FFF"
         android:textSize="14sp" />
 </RelativeLayout>

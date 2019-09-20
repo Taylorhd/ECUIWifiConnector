@@ -15,29 +15,36 @@
         <activity android:name=".FeedbackActivity"
             android:label="反馈"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask">
+        </activity>
 
         <activity android:name=".StatusActivity"
             android:label="状态"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" >
+        </activity>
         <activity
             android:name=".QuesAnsActivity"
             android:label="疑难解答"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask" >
+        </activity>
+
         <activity
             android:name=".LoginActivity"
-            android:label="登录"
+            android:label="ECUT WiFi"
             android:screenOrientation="portrait"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+
+        <activity android:name=".MainActivity" >
+        </activity>
+
+
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
