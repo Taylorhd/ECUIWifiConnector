@@ -25,7 +25,7 @@
         </activity>
         <activity
             android:name=".QuesAnsActivity"
-            android:label="疑难解答"
+            android:label="@string/lable_qa"
             android:screenOrientation="portrait"
             android:launchMode="singleTask" >
         </activity>

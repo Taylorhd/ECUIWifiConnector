@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ECUT WiFi</string>
+    <string name="get_ip_address">Q:为什么我的设备连接到WiFi的状态为"正在获取ip地址？"</string>
+    <string name="get_ip_address_ans">A:因为路由能同时接入的用户有限，对连接该WiFi的设备做了限制，可以稍后再尝试。\n</string>
+    <string name="lable_qa">帮助</string>
 </resources>

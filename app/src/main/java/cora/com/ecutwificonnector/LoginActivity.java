@@ -105,6 +105,9 @@ public class LoginActivity extends AppCompatActivity {
                         intent = new Intent(MyApplication.getContext(), FeedbackActivity.class);
                         startActivity(intent);
                         break;
+                    case R.id.quit:
+                        finish();
+                        break;
                 }
                 return false;
             }
@@ -222,6 +225,7 @@ public class LoginActivity extends AppCompatActivity {
                            @Override
                            public void onFinish(String response) {
                                loginStatus = response;
+                               Log.d(TAG, "onFinish: "+loginStatus);
                                if ("result({\"result\":\"1\",\"msg\":\"认证成功\"})".equals(loginStatus)) {
                                    Intent intent = new Intent(LoginActivity.this, StatusActivity.class);
                                    startActivity(intent);
@@ -232,8 +236,14 @@ public class LoginActivity extends AppCompatActivity {
                                        }
                                    });
 
-                               } else {
-                                   Log.d(TAG, "onFinish: error");
+                               } else if("result({\"result\":\"0\",\"msg\":\"UmFkOk9wcHAgZXJyb3I6IDR8ODJ81cu6xdLR1NrP36Gj\",\"ret_code\":\"1\"})".equals(loginStatus)){
+                                   runOnUiThread(new Runnable() {
+                                       @Override
+                                       public void run() {
+                                           Toast.makeText(MyApplication.getContext(), "已在其他设备登录", Toast.LENGTH_LONG).show();
+                                       }
+                                   });
+                               }else{
                                    runOnUiThread(new Runnable() {
                                        @Override
                                        public void run() {
@@ -273,8 +283,11 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "getWifiInfo: ssid"+wifiSSID);
         String ECUT = "\"ECUT_S\"";
         String ECUT_STUD = "\"ECUT_STUD\"";
+        String ECUTSTUD = "\"ECUT-STUD\"";
+        String fish = "\"子非鱼\"";
 
-        if (ECUT.equals(wifiSSID)||(ECUT_STUD.equals(wifiSSID))){
+
+        if (ECUT.equals(wifiSSID)||(ECUT_STUD.equals(wifiSSID))||(ECUTSTUD.equals(wifiSSID))||(fish.equals(wifiSSID))){
             //已连接
             return true;
         }else {

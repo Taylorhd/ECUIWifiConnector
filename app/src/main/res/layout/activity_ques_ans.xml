@@ -3,8 +3,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".QuesAnsActivity">
+
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="?attr/actionBarSize"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorBlack"
+                    android:hint="@string/get_ip_address"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/get_ip_address_ans"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorBlack"
+                    android:hint="Q:为什么我打开Bilibili、优酷、爱奇艺、超星学习通等软件后，界面一直在加载中，无法正常加载数据？"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:hint="A:运营商提供的DNS不稳定，请切换为阿里或者其他公共DNS。Android 端可使用DNS changer 对DNS进行修改，PC端可访问  http://www.alidns.com/setup/ 按照教程进行修改\n"/>
+
+            </LinearLayout>
+        </ScrollView>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_ques"
         android:layout_width="match_parent"
@@ -13,9 +54,5 @@
         android:theme="@style/ThemeOverlay.AppCompat.Light"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         />
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-        />
 </androidx.constraintlayout.widget.ConstraintLayout>
