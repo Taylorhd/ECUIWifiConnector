@@ -12,8 +12,6 @@
     android:layout_height="match_parent">
 
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -101,13 +99,12 @@
 
         />
 
+
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_margin="20dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="在教学区域请连接至 ECUT_STUD"
-
         />
 
     <Button
@@ -115,10 +112,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="登录"
-        android:layout_margin="30dp"
         android:layout_gravity="center_horizontal"
         />
 </LinearLayout>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            app:borderWidth="0dp"
+            app:fabSize="normal" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 
 </FrameLayout>
 <com.google.android.material.navigation.NavigationView

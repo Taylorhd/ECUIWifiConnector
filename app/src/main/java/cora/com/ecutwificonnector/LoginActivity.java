@@ -22,7 +22,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     private String account;
     private String password;
     private DrawerLayout mDrawerLayout;
+    private FloatingActionButton fab;
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -78,6 +81,15 @@ public class LoginActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         }
+        fab = (FloatingActionButton)findViewById(R.id.fab_login);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view,"hello",Snackbar.LENGTH_SHORT).show();
+                fab.setImageResource(R.drawable.ic_done_black_48dp);
+//                fab.setBackgroundResource(R.drawable.ic_done_black_48dp);
+            }
+        });
 
         navView.setCheckedItem(R.id.nav_login);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
