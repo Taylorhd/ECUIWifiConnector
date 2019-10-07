@@ -18,6 +18,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorBlack"
+                    android:hint="Q:悬浮球的图标是什么意思？"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:hint="A:悬浮球是两个箭头说明还未登录，为√则是已经登录\n"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -43,6 +54,19 @@
                     android:textSize="16sp"
                     android:hint="A:运营商提供的DNS不稳定，请切换为阿里或者其他公共DNS。Android 端可使用DNS changer 对DNS进行修改，PC端可访问  http://www.alidns.com/setup/ 按照教程进行修改\n"/>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="有什么想法和疑问快和我联系吧！"
+                    />
+                <Button
+                    android:id="@+id/feedback_buttom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="反馈"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center_horizontal"
+                    />
             </LinearLayout>
         </ScrollView>
 

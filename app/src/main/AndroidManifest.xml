@@ -11,18 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".FeedbackActivity"
-            android:label="反馈"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
-        </activity>
-
-        <activity android:name=".StatusActivity"
-            android:label="状态"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask" >
-        </activity>
         <activity
             android:name=".QuesAnsActivity"
             android:label="@string/lable_qa"
@@ -40,10 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".MainActivity" >
-        </activity>
-
 
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
